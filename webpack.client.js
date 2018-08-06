@@ -7,7 +7,7 @@ module.exports = {
     main: "./src/index.js"
   },
   output: {
-    filename: "main.js",
+    filename: "etc-stripe-cardelement.js",
     path: path.resolve("dist/client")
   },
   plugins: [
