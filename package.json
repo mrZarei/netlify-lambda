@@ -1,0 +1,11 @@
+{
+  "name": "netlify-lambda",
+  "version": "1.0.0",
+  "description": "lambda functions for handling the stripe payments",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ETC IT Team",
+  "license": "MIT"
+}
