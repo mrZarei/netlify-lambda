@@ -4,23 +4,16 @@ import helperscripts from './helperscripts';
 
 
 exports.handler = function(event, context, callback) {
-  if (!event.queryStringParameters.key) {
-    return callback(null, {
-      statusCode: 400,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify({ message: "You need to supply 'key' parameter" }),
-    });
-  }
 
-  if (event.queryStringParameters.key !== process.env.MAIL_WEBHOOK_API_KEY) {
+  // Check event's signature to be confident that request comes from stripe
+  const {error, stripeEvent} = helperscripts.getStripeEvent(event);
+  if(error){
     return callback(null, {
       statusCode: 400,
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({ message: "The 'key' parameter is invalid" }),
+      body: JSON.stringify({message: 'request from unrecognized source'})
     });
   }
 
