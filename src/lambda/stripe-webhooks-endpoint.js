@@ -1,5 +1,5 @@
 'use strict';
-import helperscripts from 'helperscripts';
+import helperscripts from './helperscripts';
 // Copy default.env to .env in the local directory and fill in the blanks.
 // Note! There is also a .env file in the parent directory, but that one is for the client.
 require('dotenv').config();
@@ -80,7 +80,7 @@ const publishEvent = (topic, stripeEvent, callback) => {
     });
   };
 
-  helperscript.smtp2go(stripeEvent.type, JSON.stringify(stripeEvent),senderEmail, receiveList, callbackFn);
+  helperscripts.smtp2go(stripeEvent.type, JSON.stringify(stripeEvent),senderEmail, receiveList, callbackFn);
 
 };
 
