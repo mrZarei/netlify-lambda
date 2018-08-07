@@ -1,4 +1,7 @@
 import request from 'request';
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
 // Should return true for important events
 // See more here: https://stripe.com/docs/api#event_types
 exports.isImportantEvent = function(type) {
@@ -45,5 +48,19 @@ exports.smtp2go = function(subject, body, sender, receiveList, callback){
     }
     callback(message, statusCode);
   });
+
+};
+
+// Parsing a signed Stripe event. Docs: https://stripe.com/docs/webhooks/signatures
+exports.getStripeEvent = function(event) {
+  let stripeEvent;
+  try {
+    let sig = event.headers["Stripe-Signature"];
+    stripeEvent = stripe.webhooks.constructEvent(event.body, sig, process.env.STRIPE_WEBHOOK_SUB_UPDATED_SECRET);
+  }
+  catch (error) {
+    return {error, stripeEvent: null}
+  }
+  return {error: null, stripeEvent}
 
 };

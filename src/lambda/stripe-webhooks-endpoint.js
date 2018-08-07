@@ -1,12 +1,8 @@
 'use strict';
-
+import helperscripts from 'helperscripts';
 // Copy default.env to .env in the local directory and fill in the blanks.
 // Note! There is also a .env file in the parent directory, but that one is for the client.
 require('dotenv').config();
-
-
-//  globals
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // Dont exit without calling this function.
 // It responds with a format API Gateway can understand
@@ -34,19 +30,6 @@ const runCallback = (error, success, callback) => {
     headers,
     body: message
   })
-}
-
-// Parsing a signed Stripe event. Docs: https://stripe.com/docs/webhooks/signatures
-const getStripeEvent = (event) => {
-  let stripeEvent
-  try {
-    let sig = event.headers["Stripe-Signature"]
-    stripeEvent = stripe.webhooks.constructEvent(event.body, sig, process.env.STRIPE_WEBHOOK_SUB_UPDATED_SECRET);
-  }
-  catch(error){
-    return {error, stripeEvent: null}
-  }
-  return {error: null, stripeEvent}
 }
 
 const handleUnrecognizedEvent = (stripeEvent, callback) => {
@@ -108,9 +91,9 @@ const publishEvent = (topic, stripeEvent, callback) => {
  * This one should just handle the stripe event customer.subscription.updated
  */
 module.exports.handler = async (event, context, callback) => {
-  let {error, stripeEvent} = getStripeEvent(event)
+  let {error, stripeEvent} = helperscripts.getStripeEvent(event);
   if (error){
-    runCallback(error, null, callback)
+    runCallback(error, null, callback);
     return
   }
 
