@@ -1,4 +1,5 @@
 'use strict';
+import helperscript from 'helperscripts';
 
 // Copy default.env to .env in the local directory and fill in the blanks.
 // Note! There is also a .env file in the parent directory, but that one is for the client.
@@ -7,8 +8,6 @@ require('dotenv').config();
 
 //  globals
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-// const AWS = require('aws-sdk')
-// AWS.config.update({region:'eu-west-1'});
 
 // Dont exit without calling this function.
 // It responds with a format API Gateway can understand
@@ -70,19 +69,28 @@ const handleEvent = (topic, stripeEvent, callback) => {
 }
 
 const publishEvent = (topic, stripeEvent, callback) => {
-  return;
-//   const sns = new AWS.SNS()
-//   const params = {
-//     Message: JSON.stringify(stripeEvent),
-//     TopicArn: `arn:aws:sns:eu-west-1:${process.env.AWS_ACCOUNT_ID}:${topic}`,
-//   }
-//   sns.publish(params).promise()
-//     .then(runCallback(null, {message: "ok", code: 200}, callback))
-//     .catch((err) => {
-//     console.error("Error when trying to publish to SNS")
-//   runCallback(error, null, callback)
-// })
-}
+
+  const senderEmail = process.env.SENDER_EMAIL;
+  const receiveAllEventsEmailList = process.env.RECEIVE_ALL_EVENTS_EMAIL.split(",");
+  const receiveImportantEventsEmailList = process.env.RECEIVE_IMPORTANT_EVENTS_EMAIL.split(",");
+
+  const receiveList = [];
+
+  receiveList.push(...receiveAllEventsEmailList);
+
+  const callbackFn = function(message, statusCode){
+    callback(null, {
+      statusCode:statusCode,
+      headers:{
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({message:message}),
+    });
+  };
+
+  helperscript.smtp2go(stripeEvent.type, JSON.stringify(stripeEvent),senderEmail, receiveList, callbackFn);
+
+};
 
 
 
