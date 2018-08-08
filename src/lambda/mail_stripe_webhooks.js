@@ -56,9 +56,11 @@ exports.handler = function(event, context, callback) {
 
     subject = "Stripe payment mail - " + email_type;
     id = eventBody.id;
-    eventBodyStr = JSON.stringify(eventBody, null, 4);
   } catch(error) {
+    console.log("*******ERROR************");
+    console.log(error);
     email_type = "Other event";
+    eventBodyStr=error;
     subject = "Webhook mail - "+email_type;
   }
 
