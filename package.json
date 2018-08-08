@@ -30,7 +30,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "dateformat": "^3.0.3",
     "normalize.css": "^8.0.0",
+    "request": "^2.87.0",
     "stripe": "^6.7.0"
   }
 }
