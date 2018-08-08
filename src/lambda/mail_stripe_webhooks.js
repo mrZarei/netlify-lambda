@@ -4,7 +4,6 @@ import helperscripts from './helperscripts';
 
 
 exports.handler = function(event, context, callback) {
-
   const senderEmail = process.env.SENDER_EMAIL;
   const receiveAllEventsEmailList = process.env.RECEIVE_ALL_EVENTS_EMAIL.split(",");
   const receiveImportantEventsEmailList = process.env.RECEIVE_IMPORTANT_EVENTS_EMAIL.split(",");
@@ -54,22 +53,14 @@ exports.handler = function(event, context, callback) {
 
   let event_link = "https://dashboard.stripe.com/events/"+id;
 
-  const body_text = `A webhook mail
-
-email type: ${email_type}
-
-event link: ${event_link}
-
-event body json error: ${eventBodyErr}
-
-------------------------
-
-event: ${event_string}
-
------------------------
-
-context: ${context_string}
-  `;
+  const body_text = `A webhook mail 
+  email type: ${email_type}
+  event link: ${event_link}
+  event body json error: ${eventBodyErr}
+  ------------------------
+  event: ${event_string}
+  -----------------------
+  context: ${context_string}`;
 
   const callbackFn = function(message, statusCode){
     callback(null, {

@@ -22,7 +22,7 @@ module.exports = {
   devServer: {
     proxy: {
       "/.netlify": {
-        target: "http://localhost:9000",
+        target: "http://localhost:9001",
         pathRewrite: { "^/.netlify/functions": "" }
       }
     }
