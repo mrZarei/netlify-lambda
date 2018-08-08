@@ -47,7 +47,7 @@ exports.handler = function(event, context, callback) {
 
   const header_str = JSON.stringify(event.headers)
   const headers = JSON.parse(header_str);
-  const sig = headers["Stripe-Signature"];
+  const sig = headers["stripe-signatur"];
   // Check event's signature to be confident that request comes from stripe
   const {error, stripeEvent} = helperscripts.getStripeEvent(event, process.env.STRIPE_MAIL_WEBHOOK_SECRET);
   let sEvent = JSON.stringify(stripeEvent);
