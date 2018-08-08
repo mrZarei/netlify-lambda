@@ -110,7 +110,7 @@ function getStripeData (form) {
 // the rest of our code is wrapped in this init function, to make sure it's not executed
 // before stripe has loaded
 function init(form) {
-  const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+  const stripe = Stripe(process.env.STRIPE_PUBLISHABLE_KEY);
   const elements = stripe.elements();
 
   const addCardInputField = () => {
@@ -191,7 +191,7 @@ function init(form) {
       stripedata
       // idempotency_key: uuid()
     })
-    return axios.post(`${LAMBDA_ENDPOINT}purchase`, data, config)
+    return axios.post(`${process.env.LAMBDA_ENDPOINT}purchase`, data, config)
   }
 
 

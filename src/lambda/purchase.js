@@ -8,9 +8,9 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // Dont exit without calling this function.
 // It responds with a format API Gateway can understand
 const runCallback = (error, success, callback) => {
-  let statusCode, message
+  let statusCode, message;
   if (error) {
-    statusCode = error.code ? error.code : 500
+    statusCode = error.code ? error.code : 500;
     message = error.message ? error.message : (typeof error == "string") ? error : ""
   }
   else {
