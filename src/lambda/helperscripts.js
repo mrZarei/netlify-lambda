@@ -56,7 +56,7 @@ exports.getStripeEvent = function(event, WEBHOOK_SECRET) {
   let stripeEvent;
   console.log('event', event);
   try {
-    let sig = event.headers["Stripe-Signature"];
+    const sig = event.headers["stripe-signature"];
     stripeEvent = stripe.webhooks.constructEvent(event.body, sig, WEBHOOK_SECRET);
   }
   catch (error) {
