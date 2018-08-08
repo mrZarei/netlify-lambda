@@ -43,7 +43,7 @@ exports.handler = function(event, context, callback) {
   let email_type = "Stripe event";
   let subject = "";
   let id = "no-id";
-  let eventBodyStr = "";
+  let eventBodyErr = "";
 
 
   try {
@@ -57,10 +57,8 @@ exports.handler = function(event, context, callback) {
     subject = "Stripe payment mail - " + email_type;
     id = eventBody.id;
   } catch(error) {
-    console.log("*******ERROR************");
-    console.log(error);
     email_type = "Other event";
-    eventBodyStr=error;
+    eventBodyErr=error;
     subject = "Webhook mail - "+email_type;
   }
 
@@ -76,7 +74,7 @@ email type: ${email_type}
 
 event link: ${event_link}
 
-event body json pretty print: ${eventBodyStr}
+event body json error: ${eventBodyErr}
 
 ------------------------
 
