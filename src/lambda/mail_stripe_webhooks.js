@@ -12,7 +12,7 @@ exports.handler = function(event, context, callback) {
   console.log(context);
 
   // Check event's signature to be confident that request comes from stripe  
-  const {error, stripeEvent} = helperscripts.getStripeEvent(event, process.env.STRIPE_WEBHOOK_SUB_UPDATED_SECRET);
+  const {error, stripeEvent} = helperscripts.getStripeEvent(event, process.env.STRIPE_MAIL_WEBHOOK_SECRET);
   if(error){
     return callback(null, {
       statusCode: 400,

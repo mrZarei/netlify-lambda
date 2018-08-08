@@ -91,7 +91,7 @@ const publishEvent = (topic, stripeEvent, callback) => {
  * This one should just handle the stripe event customer.subscription.updated
  */
 module.exports.handler = async (event, context, callback) => {
-  let {error, stripeEvent} = helperscripts.getStripeEvent(event);
+  let {error, stripeEvent} = helperscripts.getStripeEvent(event, process.env.STRIPE_ENDPOINT_WEBHOOK_SECRET);
   if (error){
     runCallback(error, null, callback);
     return
