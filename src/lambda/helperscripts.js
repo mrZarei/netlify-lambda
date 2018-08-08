@@ -5,7 +5,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // Should return true for important events
 // See more here: https://stripe.com/docs/api#event_types
 exports.isImportantEvent = function(type) {
-    importantEvents = [
+    const importantEvents = [
       "customer.created",
       "customer.deleted",
       "invoice.payment_succeeded",
