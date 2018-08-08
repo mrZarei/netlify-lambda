@@ -5,6 +5,12 @@ import helperscripts from './helperscripts';
 
 exports.handler = function(event, context, callback) {
 
+  console.log('event');
+  console.log(event);
+  console.log('--------------------CONTEXT-----------------------');
+  console.log('context');
+  console.log(context);
+
   // Check event's signature to be confident that request comes from stripe  
   const {error, stripeEvent} = helperscripts.getStripeEvent(event, process.env.STRIPE_WEBHOOK_SUB_UPDATED_SECRET);
   if(error){
