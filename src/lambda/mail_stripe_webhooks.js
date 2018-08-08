@@ -5,15 +5,15 @@ import helperscripts from './helperscripts';
 
 exports.handler = function(event, context, callback) {
 
-  // Check event's signature to be confident that request comes from stripe
-  const {error, stripeEvent} = helperscripts.getStripeEvent(event);
+  // Check event's signature to be confident that request comes from stripe  
+  const {error, stripeEvent} = helperscripts.getStripeEvent(event, process.env.STRIPE_WEBHOOK_SUB_UPDATED_SECRET);
   if(error){
     return callback(null, {
       statusCode: 400,
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({message: 'request from unrecognized source'})
+      body: JSON.stringify({error: error})
     });
   }
 
