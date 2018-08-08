@@ -54,7 +54,6 @@ exports.smtp2go = function(subject, body, sender, receiveList, callback){
 // Parsing a signed Stripe event. Docs: https://stripe.com/docs/webhooks/signatures
 exports.getStripeEvent = function(event, WEBHOOK_SECRET) {
   let stripeEvent;
-  console.log('event', event);
   try {
     const sig = event.headers["stripe-signature"];
     stripeEvent = stripe.webhooks.constructEvent(event.body, sig, WEBHOOK_SECRET);
