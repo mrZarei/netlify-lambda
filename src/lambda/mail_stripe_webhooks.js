@@ -89,6 +89,8 @@ Singature: ${sig}
 
 event body json error: ${eventBodyErr}
 
+header: ${header}
+
 ------------------------
 
 event: ${event_string}
