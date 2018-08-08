@@ -5,21 +5,27 @@ import helperscripts from './helperscripts';
 
 exports.handler = function(event, context, callback) {
 
-  console.log('event');
-  console.log(event);
-  console.log('--------------------CONTEXT-----------------------');
-  console.log('context');
-  console.log(context);
-
-  // Check event's signature to be confident that request comes from stripe  
-  const {error, stripeEvent} = helperscripts.getStripeEvent(event, process.env.STRIPE_MAIL_WEBHOOK_SECRET);
-  if(error){
+  // TODO: This validation method should be replaced by checking signature instead
+  // Check https://stripe.com/docs/webhooks/signatures
+  // It has been implemented once on commit #515ce05 but it did not work because Stripe-Signature does not
+  // exist in the request headers
+  if (!event.queryStringParameters.key) {
     return callback(null, {
       statusCode: 400,
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({error: error})
+      body: JSON.stringify({ message: "You need to supply 'key' parameter" }),
+    });
+  }
+
+  if (event.queryStringParameters.key !== process.env.MAIL_WEBHOOK_API_KEY) {
+    return callback(null, {
+      statusCode: 400,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ message: "The 'key' parameter is invalid" }),
     });
   }
 
