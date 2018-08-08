@@ -45,6 +45,13 @@ exports.handler = function(event, context, callback) {
   let id = "no-id";
   let eventBodyErr = "";
 
+  // Check event's signature to be confident that request comes from stripe
+  const {error, stripeEvent} = helperscripts.getStripeEvent(event, process.env.STRIPE_MAIL_WEBHOOK_SECRET);
+  let sEvent = JSON.stringify(stripeEvent);
+  if(error){
+    sEvent=error;
+
+  }
 
   try {
     const eventBody = JSON.parse(event.body);
@@ -73,6 +80,8 @@ exports.handler = function(event, context, callback) {
 email type: ${email_type}
 
 event link: ${event_link}
+
+StripEvent: ${sEvent}
 
 event body json error: ${eventBodyErr}
 
