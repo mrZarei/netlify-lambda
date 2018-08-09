@@ -2,21 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Netlify lambda</title>
+    <title>ETC</title>
+        <style>
+                input{
+                        display:block;
+                        margin:auto;
+                        margin-bottom: 7px;
+                }
+                form{
+                        background-color: #e30513;
+                        display: block;
+                        margin: auto;
+                        width: 200px;
+                        padding: 40px 10px;
+                        border: 1px solid #ccc;
+                        border-radius: 19px;
+                }
+                h1 {
+                        text-align: center;
+                        margin-top: 51px;
+                }
+        </style>
 </head>
 <body>
+<h1>Subscribe on standard-firstmonthfree</h1>
 <form action="" method="post" id="payment-form">
         <div id="etc-stripe"></div>
         <script id="etc-stripe-script" data-etc-stripe-plan="plan_D9SNI0Rd7zgjLS" src="etc-stripe-cardelement.js "></script>
 
-        <input data-etc-stripe="name" value="testnamn" type="text"></input>
-        <input data-etc-stripe="email" value="test@test.se" type="text"></input>
-        <input data-etc-stripe="line1" value="testgata" type="text"></input>
-        <input data-etc-stripe="line2" value="c/o Jönsson" type="text"></input>
-        <input data-etc-stripe="postal_code" value="12345" type="text"></input>
-        <input data-etc-stripe="city" value="Stöckhölm" type="text"></input>
-        <input data-etc-stripe="phone" value="070-1234567" type="text"></input>
-        <input type="submit" value="Value Prenumerera!"></input>
+        <input data-etc-stripe="name" value="testnamn" type="text"/>
+        <input data-etc-stripe="email" value="test@test.se" type="text"/>
+        <input data-etc-stripe="line1" value="testgata" type="text"/>
+        <input data-etc-stripe="line2" value="c/o Jönsson" type="text"/>
+        <input data-etc-stripe="postal_code" value="12345" type="text"/>
+        <input data-etc-stripe="city" value="Stöckhölm" type="text"/>
+        <input data-etc-stripe="phone" value="070-1234567" type="text"/>
+        <input type="submit" value="Value Prenumerera!"/>
         <!-- <button type="submit">textContent Prenumerera</button> -->
 </form>
 </body>
